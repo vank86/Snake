@@ -33,7 +33,7 @@ endif(WIN32)
 
 set(SOURCE_FILES main.cpp)
 
-add_executable(Snake main.cpp SnakeObject.cpp SnakeObject.h SnakeArea.cpp SnakeArea.h Apple.cpp Apple.h GameState.cpp GameState.h)
+add_executable(Snake main.cpp SnakeArea.cpp SnakeArea.h Apple.cpp Apple.h GameState.cpp GameState.h)
 include_directories(/usr/local/include)
 
 

@@ -44,8 +44,8 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
+.DS_Store
 cmake-build-debug/
-
 ### Example user template template
 ### Example user template
 
