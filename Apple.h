@@ -5,9 +5,22 @@
 #ifndef SNAKE_APPLE_H
 #define SNAKE_APPLE_H
 
+#include "SFML/Graphics.hpp"
+#include "SnakeArea.h"
+#include "SnakeBody.h"
 
 class Apple {
+    struct AppleObject{
+        int x;
+        int y;
+    } apple;
+    SnakeArea &area;
+    SnakeBody &snake;
 
+public:
+    Apple(SnakeArea &ar, SnakeBody &snake);
+//    void drawApple(sf::RenderWindow &window, sf::Sprite &appleSprite);
+    void appleRandomPosition();
 };
 
 

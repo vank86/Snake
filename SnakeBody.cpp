@@ -4,7 +4,7 @@
 
 #include "SnakeBody.h"
 
-SnakeBody::SnakeBody()
+SnakeBody::SnakeBody(SnakeArea &ar) : area(ar)
 {
     this->bodySize = 5;
     this->dir = RIGHT;
@@ -22,13 +22,22 @@ void SnakeBody::snakeBody()
     }
 
     if (dir == UP)
-        sn[0].y -= 1;
+        sn[0].y--;
     if (dir == DOWN)
-        sn[0].y += 1;
+        sn[0].y++;
     if (dir == RIGHT)
-        sn[0].x += 1;
+        sn[0].x++;
     if (dir == LEFT)
-        sn[0].x -= 1;
+        sn[0].x--;
+
+    if (sn[0].x > area.getWidth())
+        sn[0].x = 0;
+    if (sn[0].x < 0)
+        sn[0].x = area.getWidth();
+    if (sn[0].y > area.getHeight())
+        sn[0].y = 0;
+    if (sn[0].y < 0)
+        sn[0].y = area.getHeight();
 
 }
 
@@ -71,4 +80,18 @@ void SnakeBody::setDir(Direction direct)
 Direction SnakeBody::getDir() const
 {
     return dir;
+}
+
+int SnakeBody::snakeHeadX() const
+{
+    return sn[0].x;
+}
+int SnakeBody::snakeHeadY() const
+{
+    return sn[0].y;
+}
+
+void SnakeBody::bodyGrowth()
+{
+    this->bodySize++;
 }

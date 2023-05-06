@@ -6,7 +6,7 @@
 #define SNAKE_SNAKEBODY_H
 
 #include "SFML/Graphics.hpp"
-
+#include "SnakeArea.h"
 enum Direction {UP, DOWN, LEFT, RIGHT};
 
 //struct Snake{
@@ -20,22 +20,25 @@ class SnakeBody {
         int x;
         int y;
     } sn[50];
-//    SnakeArea &area;
+    SnakeArea &area;
     int bodySize;
     Direction dir;
 
 public:
 
-    SnakeBody();
+    SnakeBody(SnakeArea &ar);
     void snakeBody();
     void drawSnake(sf::RenderWindow &window, sf::Sprite &snakeSprite);
 //    void snakeMove(sf::Event &ev);
     int getBodySize() const;
     void setDir(Direction direct);
-    Direction getDir() const;
 
     Snake& operator[](int index);
 
+    Direction getDir() const;
+    int snakeHeadX() const;
+    int snakeHeadY() const;
+    void bodyGrowth();
 };
 
 
