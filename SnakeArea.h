@@ -11,18 +11,15 @@
 class SnakeArea {
     int width {};
     int height {};
-    int cellSize {10};
-    typedef struct playingArea{
-        bool isGround;
-        bool isWall;
-    } AREA;
+//    int cellSize {10};
+
     sf::Texture boardCell;
 
 public:
     SnakeArea(int, int);
     void drawBoard(sf::RenderWindow &window);
-    int getHeight();
-    int getWidth;
+    int getHeight() const;
+    int getWidth() const;
 //    int setHeight();
 //    int setWidth;
 };

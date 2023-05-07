@@ -26,3 +26,12 @@ void SnakeArea::drawBoard(sf::RenderWindow &window)
 //        sprite.setTextureRect(sf::IntRect(spriteRect * 11, 0, spriteRect, spriteRect));
 //    sprite.setPosition(i *board.getSizeOfCell(), j * board.getSizeOfCell());
 }
+
+int SnakeArea::getHeight() const
+{
+    return height;
+}
+int SnakeArea::getWidth() const
+{
+    return width;
+}
