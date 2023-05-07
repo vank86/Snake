@@ -2,6 +2,7 @@
 #include "SnakeArea.h"
 #include "SnakeBody.h"
 #include "Apple.h"
+#include "GameState.h"
 #include "SFML/Window.hpp"
 
 //using namespace sf;
@@ -50,7 +51,6 @@ int main() {
                 window.close();
         }
 
-//      MOVE TO SFML CLASS AFTER
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && snake.getDir() != RIGHT)
             snake.setDir(LEFT);
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && snake.getDir() != LEFT)
@@ -60,17 +60,13 @@ int main() {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && snake.getDir() != UP)
             snake.setDir(DOWN);
 
-        if (timer > delay) {
+        if (timer > delay && snake.getGameState()) {
             timer = 0;
             snake.snakeBody();
-//            appleObj.appleRandomPosition();
+            appleObj.appleRandomPosition();
         }
         snake.drawSnake(window, snakeSprite);
-//        appleObj.drawApple(window, appleSprite);
-        appleSprite.setTextureRect(sf::IntRect(0, 0, 25, 25));
-
-        appleSprite.setPosition(25,25);
-
+        appleObj.drawApple(window, appleSprite);
         window.draw(appleSprite);
         window.display();
     }

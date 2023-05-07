@@ -7,6 +7,7 @@
 
 #include "SFML/Graphics.hpp"
 #include "SnakeArea.h"
+#include "GameState.h"
 enum Direction {UP, DOWN, LEFT, RIGHT};
 
 //struct Snake{
@@ -15,7 +16,7 @@ enum Direction {UP, DOWN, LEFT, RIGHT};
 //} sn[500];
 
 
-class SnakeBody {
+class SnakeBody : public GameState{
     struct Snake{
         int x;
         int y;

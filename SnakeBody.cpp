@@ -3,10 +3,10 @@
 //
 
 #include "SnakeBody.h"
-
-SnakeBody::SnakeBody(SnakeArea &ar) : area(ar)
+#include "iostream"
+SnakeBody::SnakeBody(SnakeArea &ar) : area(ar), GameState()
 {
-    this->bodySize = 5;
+    this->bodySize = 10;
     this->dir = RIGHT;
     this->sn[0].x = 10;
     this->sn[0].y = 15;
@@ -38,6 +38,14 @@ void SnakeBody::snakeBody()
         sn[0].y = 0;
     if (sn[0].y < 0)
         sn[0].y = area.getHeight();
+
+    for (int i = 1; i < bodySize; i++)
+    {
+        if (sn[0].x == sn[i].x && sn[0].y == sn[i].y) {
+            setGameState();
+            std::cout << "Bamc!" << '\n';
+        }
+    }
 
 }
 

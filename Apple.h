@@ -19,7 +19,7 @@ class Apple {
 
 public:
     Apple(SnakeArea &ar, SnakeBody &snake);
-//    void drawApple(sf::RenderWindow &window, sf::Sprite &appleSprite);
+    void drawApple(sf::RenderWindow &window, sf::Sprite &appleSprite);
     void appleRandomPosition();
 };
 

@@ -7,7 +7,11 @@
 
 
 class GameState {
-
+    bool gameStatus;
+public:
+    GameState();
+    bool getGameState() const;
+    void setGameState();
 };
 
 

@@ -21,12 +21,12 @@ void Apple::appleRandomPosition()
 
 }
 //// PROBLEM WITH LINKER
-//void drawApple(sf::RenderWindow &window, sf::Sprite &appleSprite)
-//{
-//    appleSprite.setTextureRect(sf::IntRect(0, 0, 25, 25));
-//
-//    appleSprite.setPosition(25,25);
-//
-//    window.draw(appleSprite);
-//}
+void Apple::drawApple(sf::RenderWindow &window, sf::Sprite &appleSprite)
+{
+    appleSprite.setTextureRect(sf::IntRect(0, 0, 25, 25));
+
+    appleSprite.setPosition(apple.x * 25,apple.y * 25);
+
+    window.draw(appleSprite);
+}
 //
