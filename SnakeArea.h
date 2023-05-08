@@ -11,7 +11,6 @@
 class SnakeArea {
     int width {};
     int height {};
-//    int cellSize {10};
 
     sf::Texture boardCell;
 
@@ -20,8 +19,6 @@ public:
     void drawBoard(sf::RenderWindow &window);
     int getHeight() const;
     int getWidth() const;
-//    int setHeight();
-//    int setWidth;
 };
 
 

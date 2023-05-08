@@ -1,7 +1,3 @@
-//
-// Created by Ivan on 19/04/2023.
-//
-
 #include "Apple.h"
 //
 Apple::Apple(SnakeArea &ar, SnakeBody &snake) : area(ar), snake(snake)

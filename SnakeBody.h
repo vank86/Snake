@@ -8,13 +8,8 @@
 #include "SFML/Graphics.hpp"
 #include "SnakeArea.h"
 #include "GameState.h"
+
 enum Direction {UP, DOWN, LEFT, RIGHT};
-
-//struct Snake{
-//    int x;
-//    int y;
-//} sn[500];
-
 
 class SnakeBody : public GameState{
     struct Snake{
@@ -30,12 +25,8 @@ public:
     SnakeBody(SnakeArea &ar);
     void snakeBody();
     void drawSnake(sf::RenderWindow &window, sf::Sprite &snakeSprite);
-//    void snakeMove(sf::Event &ev);
     int getBodySize() const;
     void setDir(Direction direct);
-
-    Snake& operator[](int index);
-
     Direction getDir() const;
     int snakeHeadX() const;
     int snakeHeadY() const;

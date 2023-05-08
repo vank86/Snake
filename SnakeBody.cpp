@@ -1,9 +1,5 @@
-//
-// Created by Ivan on 06/05/2023.
-//
-
 #include "SnakeBody.h"
-#include "iostream"
+
 SnakeBody::SnakeBody(SnakeArea &ar) : area(ar), GameState()
 {
     this->bodySize = 10;
@@ -43,7 +39,6 @@ void SnakeBody::snakeBody()
     {
         if (sn[0].x == sn[i].x && sn[0].y == sn[i].y) {
             setGameState();
-            std::cout << "Bamc!" << '\n';
         }
     }
 
@@ -59,12 +54,9 @@ void SnakeBody::drawSnake(sf::RenderWindow &window, sf::Sprite &snakeSprite)
         else {
             snakeSprite.setTextureRect(sf::IntRect(25, 0, 25, 25));
         }
-//        window.draw(snakeSprite);
-//        window.draw(snakeBody);
-        snakeSprite.setPosition(sn[i].x * 25, sn[i].y * 25);
 
+        snakeSprite.setPosition(sn[i].x * 25, sn[i].y * 25);
         window.draw(snakeSprite);
-//        window.draw(snakeBody);
 
 
     }
@@ -74,11 +66,6 @@ int SnakeBody::getBodySize() const
 {
     return bodySize;
 }
-
-//Snake& SnakeBody::operator[](int index)
-//{
-//    return sn[index];
-//}
 
 void SnakeBody::setDir(Direction direct)
 {
