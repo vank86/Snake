@@ -4,6 +4,7 @@
 #include "SnakeArea.h"
 #include "SnakeBody.h"
 #include "Apple.h"
+#include "Menu.h"
 #include "SFML/Window.hpp"
 
 
@@ -13,11 +14,17 @@ class SFMLClass {
     int ResolY;
     float timer;
     float delay;
+    sf::Clock clock;
+    sf::Texture snakeTexture;
+    sf::Texture appleTexture;
+
 
 public:
-    SFMLClass(int Rx, int Ry);
+    SFMLClass(int Rx, int Ry, float delay);
     void initGame();
     int getSizeOfCell() const;
+    int getResolX();
+    int getResolY();
 };
 
 
