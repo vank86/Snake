@@ -25,12 +25,12 @@ void SFMLClass::menuWndow()
             {
                 if (event.key.code == sf::Keyboard::Up)
                 {
-                    menu.moveUp();
+                    menu.moveUp(menu.getMenuText());
                     break;
                 }
                 if (event.key.code == sf::Keyboard::Down)
                 {
-                    menu.moveDown();
+                    menu.moveDown(menu.getMenuText());
                     break;
                 }
                 if (event.key.code == sf::Keyboard::Return)
@@ -75,7 +75,7 @@ void SFMLClass::menuWndow()
             }
         }
         mainMenu.clear();
-        menu.drawMenu(mainMenu);
+        menu.drawMenu(mainMenu, menu.getMenuText());
         mainMenu.display();
     }
 
