@@ -8,7 +8,7 @@ SFMLClass::SFMLClass(int Rx, int Ry, float delay) : ResolX(Rx), ResolY(Ry), dela
 //    this->delay = 0.3;
 }
 
-void SFMLClass::menuWndow()
+void SFMLClass::menuWindow()
 {
     sf::RenderWindow mainMenu(sf::VideoMode(ResolX,ResolY), "Main menu");
     Menu menu(mainMenu.getSize().x, mainMenu.getSize().y);
@@ -35,40 +35,84 @@ void SFMLClass::menuWndow()
                 }
                 if (event.key.code == sf::Keyboard::Return)
                 {
-//                    sf::RenderWindow playWindow(sf::VideoMode(ResolX, ResolY), "Snake");
+                    sf::RenderWindow playWindow(sf::VideoMode(ResolX, ResolY), "Levels");
                     sf::RenderWindow leaderBoard(sf::VideoMode(ResolX, ResolY), "Leader Board");
                     sf::RenderWindow exitGame(sf::VideoMode(ResolX, ResolY), "Exit");
 
                     int x = menu.optionSelected();
                     if (x == 0)
                     {
+//                        mainMenu.close();
+//                        leaderBoard.close();
+//                        exitGame.close();
+//                        playWindow.clear();
+//                        playWindow.display();
+
+
+//                        initGame();
+                        menu.levelsWindow(playWindow.getSize().x, playWindow.getSize().y);
+                        while (playWindow.isOpen())
+                        {
+                            sf::Event playEvent;
+                            while (playWindow.pollEvent(playEvent))
+                            {
+                                if (playEvent.type == sf::Event::Closed)
+                                {
+                                    playWindow.close();
+                                }
+                                if (playEvent.type == sf::Event::KeyPressed)
+                                {
+                                    if(playEvent.key.code == sf::Keyboard::Escape)
+                                    {
+                                        playWindow.close();
+                                    }
+                                }
+                                if (playEvent.type == sf::Event::KeyReleased) {
+                                    if (playEvent.key.code == sf::Keyboard::Up) {
+                                        menu.moveUp(menu.getLeveltext());
+                                        break;
+                                    }
+                                    if (playEvent.key.code == sf::Keyboard::Down) {
+                                        menu.moveDown(menu.getLeveltext());
+                                        break;
+                                    }
+                                    if (event.key.code == sf::Keyboard::Return)
+                                    {
+                                        int z = menu.optionSelected();
+                                        if (z == 0) {
+                                            delay = 0.2;
+                                            initGame();
+                                        }
+                                        if (z == 1) {
+                                            delay = 0.1;
+                                            initGame();
+                                        }
+                                        if (z == 2) {
+                                            delay = 0.01;
+                                            initGame();
+                                        }
+                                    }
+                                }
+                            }
+                            leaderBoard.close();
+                            exitGame.close();
+                            playWindow.clear();
+                            mainMenu.close();
+                            menu.drawMenu(playWindow, menu.getLeveltext());
+                            playWindow.display();
+                        }
+                    }
+                    if (x == 1)
+                    {
+//                        mainMenu.close();
+//                        leaderBoard.close();
+//                        exitGame.close();
+                    }
+                    if (x == 2)
+                    {
                         mainMenu.close();
                         leaderBoard.close();
                         exitGame.close();
-                        initGame();
-
-//                        while (playWindow.isOpen())
-//                        {
-//                            sf::Event playEvent;
-//                            while (playWindow.pollEvent(playEvent))
-//                            {
-//                                if (playEvent.type == sf::Event::Closed)
-//                                {
-//                                    playWindow.close();
-//                                }
-//                                if (playEvent.type == sf::Event::KeyPressed)
-//                                {
-//                                    if(playEvent.key.code == sf::Keyboard::Escape)
-//                                    {
-//                                        playWindow.close();
-//                                    }
-//                                }
-//                            }
-//                            leaderBoard.close();
-//                            exitGame.close();
-//                            playWindow.clear();
-//                            playWindow.display();
-//                        }
                     }
 
                 }
@@ -122,7 +166,7 @@ void SFMLClass::initGame()
                 if(event.key.code == sf::Keyboard::Escape)
                 {
                     window.close();
-                    menuWndow();
+                    menuWindow();
                 }
             }
         }

@@ -23,21 +23,39 @@ Menu::Menu(int ResolX, int ResolY)
     menuText[2].setPosition(sf::Vector2<float>(ResolX / 3.9 , ResolY / (menuMaxOptionsAmount + 2) * 3));
 
 
-    levelsText[0] = {"Choose the level:", menuFont, 80};
+    levelsText[0] = {"Easy Level", menuFont, 80};
     levelsText[0].setFillColor(sf::Color::Red);
-    levelsText[0].setPosition(ResolX / 3.9 , ResolY / (levelMaxOptionsAmount + 3) * 1);
+    levelsText[0].setPosition(ResolX / 3.9 , ResolY / (levelMaxOptionsAmount + 2) * 1);
 
-    levelsText[1] = {"Easy", menuFont, 80};
+    levelsText[1] = {"Medium level", menuFont, 80};
     levelsText[1].setFillColor(sf::Color::White);
-    levelsText[1].setPosition(ResolX / 3.9 , ResolY / (levelMaxOptionsAmount + 3) * 2);
+    levelsText[1].setPosition(ResolX / 3.9 , ResolY / (levelMaxOptionsAmount + 2) * 2);
 
-    levelsText[2] = {"Medium", menuFont, 80};
+    levelsText[2] = {"Hard level", menuFont, 80};
     levelsText[2].setFillColor(sf::Color::White);
-    levelsText[2].setPosition(ResolX / 3.9 , ResolY / (levelMaxOptionsAmount + 3) * 3);
+    levelsText[2].setPosition(ResolX / 3.9 , ResolY / (levelMaxOptionsAmount + 2) * 3);
 
-    levelsText[3] = {"Hard", menuFont, 80};
-    levelsText[3].setFillColor(sf::Color::White);
-    levelsText[3].setPosition(ResolX / 3.9 , ResolY / (levelMaxOptionsAmount + 3) * 4);
+
+    optionIndex = 0;
+}
+
+void Menu::levelsWindow(int ResolX, int ResolY){
+    if (!menuFont.loadFromFile("../fonts/arial.ttf")){
+        std::cout << "Not found";
+    }
+
+    levelsText[0] = {"Easy Level", menuFont, 80};
+    levelsText[0].setFillColor(sf::Color::Red);
+    levelsText[0].setPosition(ResolX / 3.9 , ResolY / (levelMaxOptionsAmount + 2) * 1);
+
+    levelsText[1] = {"Medium level", menuFont, 80};
+    levelsText[1].setFillColor(sf::Color::White);
+    levelsText[1].setPosition(ResolX / 3.9 , ResolY / (levelMaxOptionsAmount + 2) * 2);
+
+    levelsText[2] = {"Hard level", menuFont, 80};
+    levelsText[2].setFillColor(sf::Color::White);
+    levelsText[2].setPosition(ResolX / 3.9 , ResolY / (levelMaxOptionsAmount + 2) * 3);
+
 
     optionIndex = 0;
 }
@@ -47,9 +65,9 @@ void Menu::drawMenu(sf::RenderWindow &window, sf::Text *text) {
         window.draw(text[i]);
 }
 
-void Menu::drawLevels(sf::RenderWindow &window) {
+void Menu::drawLevels(sf::RenderWindow &window, sf::Text *text) {
     for (int i = 0; i < levelMaxOptionsAmount; i++)
-        window.draw(levelsText[i]);
+        window.draw(text[i]);
 }
 
 void Menu::moveUp(sf::Text *text) {
@@ -65,7 +83,6 @@ void Menu::moveUp(sf::Text *text) {
         text[optionIndex].setFillColor(sf::Color::Red);
     }
     std::cout << "index after: " << optionIndex << '\n';
-
 }
 
 void Menu::moveDown(sf::Text *text) {

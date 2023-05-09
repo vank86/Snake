@@ -19,8 +19,9 @@ class Menu {
 
 public:
     Menu(int ResolX, int ResolY);
+    void levelsWindow(int ResolX, int ResolY);
     void drawMenu(sf::RenderWindow &window, sf::Text *text);
-    void drawLevels(sf::RenderWindow &window);
+    void drawLevels(sf::RenderWindow &window, sf::Text *text);
 
     void moveUp(sf::Text *text);
     void moveDown(sf::Text *text);

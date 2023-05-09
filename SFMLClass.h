@@ -21,7 +21,7 @@ class SFMLClass {
 
 public:
     SFMLClass(int Rx, int Ry, float delay);
-    void menuWndow();
+    void menuWindow();
     void initGame();
     int getSizeOfCell() const;
     int getResolX();
