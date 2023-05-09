@@ -10,7 +10,7 @@ SFMLClass::SFMLClass(int Rx, int Ry, float delay) : ResolX(Rx), ResolY(Ry), dela
 
 void SFMLClass::menuWndow()
 {
-    sf::RenderWindow mainMenu(sf::VideoMode(ResolX,ResolY), "Snake");
+    sf::RenderWindow mainMenu(sf::VideoMode(ResolX,ResolY), "Main menu");
     Menu menu(mainMenu.getSize().x, mainMenu.getSize().y);
 
     while (mainMenu.isOpen())
@@ -35,35 +35,40 @@ void SFMLClass::menuWndow()
                 }
                 if (event.key.code == sf::Keyboard::Return)
                 {
-                    sf::RenderWindow playWindow(sf::VideoMode(ResolX, ResolY), "Snake");
-                    sf::RenderWindow levelWindow(sf::VideoMode(ResolX, ResolY), "Snake");
-                    sf::RenderWindow exitGame(sf::VideoMode(ResolX, ResolY), "Snake");
+//                    sf::RenderWindow playWindow(sf::VideoMode(ResolX, ResolY), "Snake");
+                    sf::RenderWindow leaderBoard(sf::VideoMode(ResolX, ResolY), "Leader Board");
+                    sf::RenderWindow exitGame(sf::VideoMode(ResolX, ResolY), "Exit");
 
                     int x = menu.optionSelected();
                     if (x == 0)
                     {
-                        while (playWindow.isOpen())
-                        {
-                            sf::Event playEvent;
-                            while (playWindow.pollEvent(playEvent))
-                            {
-                                if (playEvent.type == sf::Event::Closed)
-                                {
-                                    playWindow.close();
-                                }
-                                if (playEvent.type == sf::Event::KeyPressed)
-                                {
-                                    if(playEvent.key.code == sf::Keyboard::Escape)
-                                    {
-                                        playWindow.close();
-                                    }
-                                }
-                            }
-                            levelWindow.close();
-                            exitGame.close();
-                            playWindow.clear();
-                            playWindow.display();
-                        }
+                        mainMenu.close();
+                        leaderBoard.close();
+                        exitGame.close();
+                        initGame();
+
+//                        while (playWindow.isOpen())
+//                        {
+//                            sf::Event playEvent;
+//                            while (playWindow.pollEvent(playEvent))
+//                            {
+//                                if (playEvent.type == sf::Event::Closed)
+//                                {
+//                                    playWindow.close();
+//                                }
+//                                if (playEvent.type == sf::Event::KeyPressed)
+//                                {
+//                                    if(playEvent.key.code == sf::Keyboard::Escape)
+//                                    {
+//                                        playWindow.close();
+//                                    }
+//                                }
+//                            }
+//                            leaderBoard.close();
+//                            exitGame.close();
+//                            playWindow.clear();
+//                            playWindow.display();
+//                        }
                     }
 
                 }
@@ -95,16 +100,16 @@ void SFMLClass::initGame()
     appleTexture.loadFromFile("../images/apple.png");
     sf::Sprite appleSprite(appleTexture);
 
-//    // run the program as long as the window is open
-    window.clear();
-//    menu.drawMenu(window);
-    window.display();
+////    // run the program as long as the window is open
+//    window.clear();
+////    menu.drawMenu(window);
+//    window.display();
 
     while (window.isOpen())
     {
-//        float time = clock.getElapsedTime().asSeconds();
-//        clock.restart();
-//        timer += time;
+        float time = clock.getElapsedTime().asSeconds();
+        clock.restart();
+        timer += time;
 
 
         sf::Event event;
@@ -112,27 +117,35 @@ void SFMLClass::initGame()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+            if (event.type == sf::Event::KeyPressed)
+            {
+                if(event.key.code == sf::Keyboard::Escape)
+                {
+                    window.close();
+                    menuWndow();
+                }
+            }
         }
-//        snakeArea.drawBoard(window);
+        snakeArea.drawBoard(window);
 
-//        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && snake.getDir() != RIGHT)
-//            snake.setDir(LEFT);
-//        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && snake.getDir() != LEFT)
-//            snake.setDir(RIGHT);
-//        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && snake.getDir() != DOWN)
-//            snake.setDir(UP);
-//        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && snake.getDir() != UP)
-//            snake.setDir(DOWN);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && snake.getDir() != RIGHT)
+            snake.setDir(LEFT);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && snake.getDir() != LEFT)
+            snake.setDir(RIGHT);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && snake.getDir() != DOWN)
+            snake.setDir(UP);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && snake.getDir() != UP)
+            snake.setDir(DOWN);
 
-//        if (timer > delay && snake.getGameState()) {
-//            timer = 0;
-//            snake.snakeBody();
-//            appleObj.appleRandomPosition();
-//        }
-//        snake.drawSnake(window, snakeSprite);
-//        appleObj.drawApple(window, appleSprite);
-//        window.draw(appleSprite);
-//        window.display();
+        if (timer > delay && snake.getGameState()) {
+            timer = 0;
+            snake.snakeBody();
+            appleObj.appleRandomPosition();
+        }
+        snake.drawSnake(window, snakeSprite);
+        appleObj.drawApple(window, appleSprite);
+        window.draw(appleSprite);
+        window.display();
     }
 }
 
