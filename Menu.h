@@ -18,6 +18,9 @@ class Menu {
 public:
     Menu(int ResolX, int ResolY);
     void drawMenu(sf::RenderWindow &window);
+    void moveUp();
+    void moveDown();
+    int optionSelected();
 };
 
 

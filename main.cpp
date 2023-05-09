@@ -6,7 +6,8 @@
 int main() {
     srand(time(nullptr));
     SFMLClass Snake(900,900, 0.1);
-    Snake.initGame();
+    Snake.menuWndow();
+//    Snake.initGame();
 
     return 0;
 }
