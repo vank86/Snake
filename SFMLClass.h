@@ -23,6 +23,7 @@ public:
     SFMLClass(int Rx, int Ry, float delay);
     void menuWindow();
     void initGame();
+    void gameOverText(sf::RenderWindow &window);
     int getSizeOfCell() const;
     int getResolX();
     int getResolY();

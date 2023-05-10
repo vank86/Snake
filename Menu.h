@@ -10,18 +10,17 @@
 #include <iostream>
 class Menu {
     const int menuMaxOptionsAmount = 3;
-    const int levelMaxOptionsAmount = 4;
     int optionIndex;
     sf::Font menuFont;
     sf::Text menuText[3];
-    sf::Text levelsText[4];
+    sf::Text levelsText[3];
 //    sf::RenderWindow &window;
 
 public:
     Menu(int ResolX, int ResolY);
     void levelsWindow(int ResolX, int ResolY);
     void drawMenu(sf::RenderWindow &window, sf::Text *text);
-    void drawLevels(sf::RenderWindow &window, sf::Text *text);
+//    void drawLevels(sf::RenderWindow &window, sf::Text *text);
 
     void moveUp(sf::Text *text);
     void moveDown(sf::Text *text);

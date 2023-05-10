@@ -1,5 +1,6 @@
 #include "SFMLClass.h"
 
+void gameOverText(sf::RenderWindow &window);
 
 SFMLClass::SFMLClass(int Rx, int Ry, float delay) : ResolX(Rx), ResolY(Ry), delay(delay)
 {
@@ -13,6 +14,8 @@ void SFMLClass::menuWindow()
     sf::RenderWindow mainMenu(sf::VideoMode(ResolX,ResolY), "Main menu");
     Menu menu(mainMenu.getSize().x, mainMenu.getSize().y);
 
+//  Main menu window  with UP/DOWN moves:
+
     while (mainMenu.isOpen())
     {
         sf::Event event;
@@ -20,7 +23,13 @@ void SFMLClass::menuWindow()
         {
             if (event.type == sf::Event::Closed)
                 mainMenu.close();
-
+            if (event.type == sf::Event::KeyPressed)
+            {
+                if(event.key.code == sf::Keyboard::Escape)
+                {
+                    mainMenu.close();
+                }
+            }
             if (event.type == sf::Event::KeyReleased)
             {
                 if (event.key.code == sf::Keyboard::Up)
@@ -39,17 +48,12 @@ void SFMLClass::menuWindow()
                     sf::RenderWindow leaderBoard(sf::VideoMode(ResolX, ResolY), "Leader Board");
                     sf::RenderWindow exitGame(sf::VideoMode(ResolX, ResolY), "Exit");
 
+
+//                  MENU CHOICE
+
                     int x = menu.optionSelected();
                     if (x == 0)
                     {
-//                        mainMenu.close();
-//                        leaderBoard.close();
-//                        exitGame.close();
-//                        playWindow.clear();
-//                        playWindow.display();
-
-
-//                        initGame();
                         menu.levelsWindow(playWindow.getSize().x, playWindow.getSize().y);
                         while (playWindow.isOpen())
                         {
@@ -65,6 +69,7 @@ void SFMLClass::menuWindow()
                                     if(playEvent.key.code == sf::Keyboard::Escape)
                                     {
                                         playWindow.close();
+                                        menuWindow();
                                     }
                                 }
                                 if (playEvent.type == sf::Event::KeyReleased) {
@@ -80,14 +85,17 @@ void SFMLClass::menuWindow()
                                     {
                                         int z = menu.optionSelected();
                                         if (z == 0) {
+                                            playWindow.close();
                                             delay = 0.2;
                                             initGame();
                                         }
                                         if (z == 1) {
+                                            playWindow.close();
                                             delay = 0.1;
                                             initGame();
                                         }
                                         if (z == 2) {
+                                            playWindow.close();
                                             delay = 0.01;
                                             initGame();
                                         }
@@ -96,8 +104,8 @@ void SFMLClass::menuWindow()
                             }
                             leaderBoard.close();
                             exitGame.close();
-                            playWindow.clear();
                             mainMenu.close();
+                            playWindow.clear();
                             menu.drawMenu(playWindow, menu.getLeveltext());
                             playWindow.display();
                         }
@@ -185,12 +193,49 @@ void SFMLClass::initGame()
             timer = 0;
             snake.snakeBody();
             appleObj.appleRandomPosition();
+            if (!snake.getGameState()){
+                window.close();
+                sf::RenderWindow gameOver(sf::VideoMode(ResolX, ResolY), "Game Over");
+                while (gameOver.isOpen())
+                {
+                    sf::Event gameOverEvent;
+                    while (gameOver.pollEvent(gameOverEvent)) {
+                        if (gameOverEvent.type == sf::Event::Closed)
+                            gameOver.close();
+                        if (gameOverEvent.type == sf::Event::KeyPressed) {
+                            if (gameOverEvent.key.code == sf::Keyboard::Escape) {
+                                gameOver.close();
+                                menuWindow();
+                            }
+                        }
+                    }
+                    gameOver.clear();
+                    SFMLClass::gameOverText(gameOver);
+                    gameOver.display();
+                }
+//                menuWindow();
+            }
         }
         snake.drawSnake(window, snakeSprite);
         appleObj.drawApple(window, appleSprite);
         window.draw(appleSprite);
         window.display();
     }
+}
+
+
+void SFMLClass::gameOverText(sf::RenderWindow &window)
+{
+    sf::Font gameOverFont;
+    if (!gameOverFont.loadFromFile("../fonts/arial.ttf")){
+        std::cout << "Not found";
+    }
+    sf::Text gameOverText;
+
+    gameOverText = {"        Game Over\n\n Press ESC to restart", gameOverFont, 60};
+    gameOverText.setFillColor(sf::Color::Red);
+    gameOverText.setPosition(sf::Vector2<float>(ResolX / 5.5 , ResolY / 3));
+    window.draw(gameOverText);
 }
 
 int SFMLClass::getSizeOfCell() const
@@ -205,6 +250,5 @@ int SFMLClass::getResolX() {
 int SFMLClass::getResolY() {
     return ResolY;
 }
-
 
 
