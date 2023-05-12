@@ -5,10 +5,11 @@
 #include "SnakeBody.h"
 #include "Apple.h"
 #include "Menu.h"
+#include "GameState.h"
 #include "SFML/Window.hpp"
+#include <string>
 
-
-class SFMLClass {
+class SFMLClass{
     int cellSize;
     int ResolX;
     int ResolY;
@@ -20,13 +21,13 @@ class SFMLClass {
 
 
 public:
-    SFMLClass(int Rx, int Ry, float delay);
+    SFMLClass(int Rx, int Ry);
     void menuWindow();
     void initGame();
     void gameOverText(sf::RenderWindow &window);
     int getSizeOfCell() const;
-    int getResolX();
-    int getResolY();
+    int getResolX() const;
+    int getResolY() const;
 };
 
 

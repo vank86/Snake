@@ -15,7 +15,7 @@ class SnakeBody : public GameState{
     struct Snake{
         int x;
         int y;
-    } sn[50];
+    } sn[100];
     SnakeArea &area;
     int bodySize;
     Direction dir;

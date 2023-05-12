@@ -1,8 +1,8 @@
 #include "SnakeBody.h"
 
-SnakeBody::SnakeBody(SnakeArea &ar) : area(ar), GameState()
+SnakeBody::SnakeBody(SnakeArea &ar) : GameState(), area(ar)
 {
-    this->bodySize = 10;
+    this->bodySize = 3;
     this->dir = RIGHT;
     this->sn[0].x = 10;
     this->sn[0].y = 15;

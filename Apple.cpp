@@ -10,9 +10,10 @@ void Apple::appleRandomPosition()
 {
     if ((snake.snakeHeadX() == apple.x) && (snake.snakeHeadY() == apple.y)) {
         snake.bodyGrowth();
+        increaseScore();
+        GameState::showScore();
         apple.x = rand() % area.getWidth();
         apple.y = rand() % area.getHeight();
-
     }
 
 }

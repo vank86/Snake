@@ -1,12 +1,11 @@
 #include "SFMLClass.h"
 
-void gameOverText(sf::RenderWindow &window);
 
-SFMLClass::SFMLClass(int Rx, int Ry, float delay) : ResolX(Rx), ResolY(Ry), delay(delay)
+SFMLClass::SFMLClass(int Rx, int Ry) : ResolX(Rx), ResolY(Ry)
 {
     this->cellSize = 25;
     this->timer = 0;
-//    this->delay = 0.3;
+    this->delay = 0;
 }
 
 void SFMLClass::menuWindow()
@@ -231,10 +230,11 @@ void SFMLClass::gameOverText(sf::RenderWindow &window)
         std::cout << "Not found";
     }
     sf::Text gameOverText;
-
-    gameOverText = {"        Game Over\n\n Press ESC to restart", gameOverFont, 60};
+//    "\n       Game Over\n\n Press ESC to restart"
+    gameOverText = {"      Your score: " + std::to_string(GameState::getScore()) +
+                    "\n\n       Game Over\n\n Press ESC to restart" , gameOverFont, 60};
     gameOverText.setFillColor(sf::Color::Red);
-    gameOverText.setPosition(sf::Vector2<float>(ResolX / 5.5 , ResolY / 3));
+    gameOverText.setPosition(sf::Vector2<float>(static_cast<float>(ResolX) / 5.5f , static_cast<float>(ResolY) / 4.f));
     window.draw(gameOverText);
 }
 
@@ -243,11 +243,11 @@ int SFMLClass::getSizeOfCell() const
     return cellSize;
 }
 
-int SFMLClass::getResolX() {
+int SFMLClass::getResolX() const {
     return ResolX;
 }
 
-int SFMLClass::getResolY() {
+int SFMLClass::getResolY() const {
     return ResolY;
 }
 
