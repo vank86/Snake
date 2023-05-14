@@ -19,9 +19,9 @@ void GameState::setGameState()
 
 void GameState::increaseScore()
 {
-    score += 1;
+    score++;
 }
-
+// test function
 void GameState::showScore()
 {
     std::cout << score << '\n';

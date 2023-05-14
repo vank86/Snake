@@ -251,4 +251,43 @@ int SFMLClass::getResolY() const {
     return ResolY;
 }
 
+bool SFMLClass::compare_scores(playerScore ps1, playerScore ps2) {
+    return ps1.score > ps2.score;
+}
+
+void SFMLClass::playerToScoreBoard() {
+    std::vector<playerScore> scores;
+    std::ifstream infile("../textfiles/results.txt");
+    if (infile.is_open()) {
+        while (!infile.eof()) {
+            playerScore ps;
+            infile >> ps.name >> ps.score;
+            scores.push_back(ps);
+        }
+        infile.close();
+    }
+
+    // get the number of players and their scores from user input
+        playerScore ps;
+        std::cout << "Enter the name of player: ";
+        std::cin >> ps.name;
+        ps.score = GameState::getScore();
+        scores.push_back(ps);
+
+    // sort the player scores in descending order using the compare_scores function
+    std::sort(scores.begin(), scores.end(), compare_scores);
+
+    // create a file stream and write the player scores to the file in descending order
+    std::ofstream outfile("../textfiles/results.txt");
+    if (outfile.is_open()) {
+        for (int i = 0; i < scores.size(); i++) {
+            outfile << scores[i].name << " " << scores[i].score << std::endl;
+        }
+        outfile.close();
+        std::cout << "Scores saved to file." << std::endl;
+    } else {
+        std::cout << "Error: unable to open file." << std::endl;
+    }
+}
+
 

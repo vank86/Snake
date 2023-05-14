@@ -8,6 +8,17 @@
 #include "GameState.h"
 #include "SFML/Window.hpp"
 #include <string>
+#include <fstream>
+#include <vector>
+#include <algorithm>
+
+
+
+struct playerScore
+{
+    std::string name;
+    int score;
+};
 
 class SFMLClass{
     int cellSize;
@@ -28,6 +39,8 @@ public:
     int getSizeOfCell() const;
     int getResolX() const;
     int getResolY() const;
+    static bool compare_scores(playerScore ps1, playerScore ps2);
+    void playerToScoreBoard();
 };
 
 
