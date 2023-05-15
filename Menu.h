@@ -8,18 +8,29 @@
 #include "SFML/Graphics.hpp"
 #include "SFMLClass.h"
 #include <iostream>
+#include <vector>
+#include <string>
+
+
+
 class Menu {
     const int menuMaxOptionsAmount = 3;
+    const int scoreBoardAmount = 10;
     int optionIndex;
     sf::Font menuFont;
     sf::Text menuText[3];
     sf::Text levelsText[3];
+    sf::Text scoreText[10];
+
 //    sf::RenderWindow &window;
 
 public:
     Menu(int ResolX, int ResolY);
+    bool is_empty(std::ifstream& pFile);
     void levelsWindow(int ResolX, int ResolY);
     void drawMenu(sf::RenderWindow &window, sf::Text *text);
+    void scoreBoard(int ResolX, int ResolY, sf::RenderWindow &window);
+
 //    void drawLevels(sf::RenderWindow &window, sf::Text *text);
 
     void moveUp(sf::Text *text);

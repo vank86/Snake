@@ -3,7 +3,7 @@
 GameState::GameState()
 {
     gameStatus = true;
-    std::cout << "created GameState" << '\n';
+//    std::cout << "created GameState" << '\n';
 
 }
 
@@ -24,9 +24,13 @@ void GameState::increaseScore()
 // test function
 void GameState::showScore()
 {
-    std::cout << score << '\n';
+//    std::cout << score << std::endl;
 }
 int GameState::getScore()
 {
     return score;
+}
+
+void GameState::resetScore() {
+    score = 0;
 }

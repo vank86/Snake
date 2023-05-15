@@ -6,13 +6,14 @@ SFMLClass::SFMLClass(int Rx, int Ry) : ResolX(Rx), ResolY(Ry)
     this->cellSize = 25;
     this->timer = 0;
     this->delay = 0;
+    menuWindow();
 }
 
 void SFMLClass::menuWindow()
 {
     sf::RenderWindow mainMenu(sf::VideoMode(ResolX,ResolY), "Main menu");
     Menu menu(mainMenu.getSize().x, mainMenu.getSize().y);
-
+    GameState::resetScore();
 //  Main menu window  with UP/DOWN moves:
 
     while (mainMenu.isOpen())
@@ -43,16 +44,13 @@ void SFMLClass::menuWindow()
                 }
                 if (event.key.code == sf::Keyboard::Return)
                 {
-                    sf::RenderWindow playWindow(sf::VideoMode(ResolX, ResolY), "Levels");
-                    sf::RenderWindow leaderBoard(sf::VideoMode(ResolX, ResolY), "Leader Board");
-                    sf::RenderWindow exitGame(sf::VideoMode(ResolX, ResolY), "Exit");
-
 
 //                  MENU CHOICE
 
                     int x = menu.optionSelected();
                     if (x == 0)
                     {
+                        sf::RenderWindow playWindow(sf::VideoMode(ResolX, ResolY), "Levels");
                         menu.levelsWindow(playWindow.getSize().x, playWindow.getSize().y);
                         while (playWindow.isOpen())
                         {
@@ -101,8 +99,6 @@ void SFMLClass::menuWindow()
                                     }
                                 }
                             }
-                            leaderBoard.close();
-                            exitGame.close();
                             mainMenu.close();
                             playWindow.clear();
                             menu.drawMenu(playWindow, menu.getLeveltext());
@@ -111,6 +107,31 @@ void SFMLClass::menuWindow()
                     }
                     if (x == 1)
                     {
+                        sf::RenderWindow leaderBoard(sf::VideoMode(ResolX, ResolY), "Leader Board");
+                        while (leaderBoard.isOpen())
+                        {
+                            sf::Event leaderEvent;
+                            while (leaderBoard.pollEvent(leaderEvent))
+                            {
+                                if (leaderEvent.type == sf::Event::Closed)
+                                {
+                                    leaderBoard.close();
+                                }
+                                if (leaderEvent.type == sf::Event::KeyPressed)
+                                {
+                                    if(leaderEvent.key.code == sf::Keyboard::Escape)
+                                    {
+                                        leaderBoard.close();
+                                        menuWindow();
+                                    }
+                                }
+                            }
+
+                            mainMenu.close();
+                            leaderBoard.clear();
+                            menu.scoreBoard(leaderBoard.getSize().x, leaderBoard.getSize().y, leaderBoard);
+                            leaderBoard.display();
+                        }
 //                        mainMenu.close();
 //                        leaderBoard.close();
 //                        exitGame.close();
@@ -118,8 +139,6 @@ void SFMLClass::menuWindow()
                     if (x == 2)
                     {
                         mainMenu.close();
-                        leaderBoard.close();
-                        exitGame.close();
                     }
 
                 }
@@ -203,6 +222,7 @@ void SFMLClass::initGame()
                             gameOver.close();
                         if (gameOverEvent.type == sf::Event::KeyPressed) {
                             if (gameOverEvent.key.code == sf::Keyboard::Escape) {
+                                playerToScoreBoard();
                                 gameOver.close();
                                 menuWindow();
                             }
@@ -212,7 +232,6 @@ void SFMLClass::initGame()
                     SFMLClass::gameOverText(gameOver);
                     gameOver.display();
                 }
-//                menuWindow();
             }
         }
         snake.drawSnake(window, snakeSprite);
@@ -230,6 +249,8 @@ void SFMLClass::gameOverText(sf::RenderWindow &window)
         std::cout << "Not found";
     }
     sf::Text gameOverText;
+
+
 //    "\n       Game Over\n\n Press ESC to restart"
     gameOverText = {"      Your score: " + std::to_string(GameState::getScore()) +
                     "\n\n       Game Over\n\n Press ESC to restart" , gameOverFont, 60};
@@ -256,21 +277,25 @@ bool SFMLClass::compare_scores(playerScore ps1, playerScore ps2) {
 }
 
 void SFMLClass::playerToScoreBoard() {
-    std::vector<playerScore> scores;
+    std::vector<playerScore> scores {};
     std::ifstream infile("../textfiles/results.txt");
     if (infile.is_open()) {
         while (!infile.eof()) {
             playerScore ps;
-            infile >> ps.name >> ps.score;
-            scores.push_back(ps);
+            if (!is_empty(infile)) {
+                infile >> ps.name >> ps.score;
+                if (ps.name.empty())
+                    break;
+                scores.push_back(ps);
+            }
         }
         infile.close();
     }
 
     // get the number of players and their scores from user input
         playerScore ps;
-        std::cout << "Enter the name of player: ";
-        std::cin >> ps.name;
+//        std::cout << "Enter the name of player: ";
+        ps.name = "Player#";
         ps.score = GameState::getScore();
         scores.push_back(ps);
 
@@ -280,14 +305,37 @@ void SFMLClass::playerToScoreBoard() {
     // create a file stream and write the player scores to the file in descending order
     std::ofstream outfile("../textfiles/results.txt");
     if (outfile.is_open()) {
-        for (int i = 0; i < scores.size(); i++) {
-            outfile << scores[i].name << " " << scores[i].score << std::endl;
+        for (auto &score: scores) {
+            outfile << score.name << " " << score.score << std::endl;
         }
         outfile.close();
-        std::cout << "Scores saved to file." << std::endl;
-    } else {
-        std::cout << "Error: unable to open file." << std::endl;
     }
+
+//        std::cout << "Scores saved to file.";
+//    } else {
+////        std::cout << "Error: unable to open file.";
+//    }
 }
 
+bool SFMLClass::is_empty(std::ifstream& pFile)
+{
+    return pFile.peek() == std::ifstream::traits_type::eof();
+}
 
+std::vector<playerScore> SFMLClass::getScoreBoard() {
+    std::vector<playerScore> scores {};
+    std::ifstream infile("../textfiles/results.txt");
+    if (infile.is_open()) {
+        while (!infile.eof()) {
+            playerScore ps;
+            if (!is_empty(infile)) {
+                infile >> ps.name >> ps.score;
+                if (ps.name.empty())
+                    break;
+                scores.push_back(ps);
+            }
+        }
+        infile.close();
+    }
+    return scores;
+}

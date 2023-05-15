@@ -11,7 +11,7 @@
 #include <fstream>
 #include <vector>
 #include <algorithm>
-
+#include <filesystem>
 
 
 struct playerScore
@@ -41,6 +41,9 @@ public:
     int getResolY() const;
     static bool compare_scores(playerScore ps1, playerScore ps2);
     void playerToScoreBoard();
+    std::vector<playerScore> getScoreBoard();
+    bool is_empty(std::ifstream& pFile);
+
 };
 
 
