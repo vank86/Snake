@@ -9,7 +9,7 @@
 #include "SnakeArea.h"
 #include "SnakeBody.h"
 
-class Apple {
+class Apple : public GameState{
     struct AppleObject{
         int x;
         int y;

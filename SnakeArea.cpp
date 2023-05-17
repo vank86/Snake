@@ -11,6 +11,8 @@ void SnakeArea::drawBoard(sf::RenderWindow &window)
     {
         abort();
     }
+
+//    background sprites drawing
     sf::Sprite sprite(boardCell);
     for (int i = 0; i < width; i++){
         for (int j = 0; j < height; j++){
@@ -19,8 +21,6 @@ void SnakeArea::drawBoard(sf::RenderWindow &window)
             window.draw(sprite);
         }
     }
-//        sprite.setTextureRect(sf::IntRect(spriteRect * 11, 0, spriteRect, spriteRect));
-//    sprite.setPosition(i *board.getSizeOfCell(), j * board.getSizeOfCell());
 }
 
 int SnakeArea::getHeight() const

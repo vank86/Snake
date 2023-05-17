@@ -14,3 +14,17 @@ void GameState::setGameState()
 {
     gameStatus = !gameStatus;
 }
+
+void GameState::increaseScore()
+{
+    score++;
+}
+
+int GameState::getScore()
+{
+    return score;
+}
+
+void GameState::resetScore() {
+    score = 0;
+}

@@ -1,7 +1,3 @@
-//
-// Created by Ivan on 06/05/2023.
-//
-
 #ifndef SNAKE_SNAKEBODY_H
 #define SNAKE_SNAKEBODY_H
 
@@ -15,7 +11,7 @@ class SnakeBody : public GameState{
     struct Snake{
         int x;
         int y;
-    } sn[50];
+    } sn[100];
     SnakeArea &area;
     int bodySize;
     Direction dir;
@@ -25,11 +21,12 @@ public:
     SnakeBody(SnakeArea &ar);
     void snakeBody();
     void drawSnake(sf::RenderWindow &window, sf::Sprite &snakeSprite);
-    int getBodySize() const;
     void setDir(Direction direct);
+
     Direction getDir() const;
     int snakeHeadX() const;
     int snakeHeadY() const;
+
     void bodyGrowth();
 };
 
