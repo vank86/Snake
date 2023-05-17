@@ -1,15 +1,13 @@
-//
-// Created by Ivan on 08/05/2023.
-//
 
 #include "Menu.h"
+
 
 Menu::Menu(int ResolX, int ResolY)
 {
     if (!menuFont.loadFromFile("../fonts/arial.ttf")){
         std::cout << "Not found";
     }
-
+//      main menu objects
     menuText[0] = {"      Play", menuFont, 80};
     menuText[0].setFillColor(sf::Color::Red);
     menuText[0].setPosition(sf::Vector2<float>(ResolX / 3.9 , ResolY / (menuMaxOptionsAmount + 2) * 1));
@@ -22,7 +20,7 @@ Menu::Menu(int ResolX, int ResolY)
     menuText[2].setFillColor(sf::Color::White);
     menuText[2].setPosition(sf::Vector2<float>(ResolX / 3.9 , ResolY / (menuMaxOptionsAmount + 2) * 3));
 
-
+//  menu option selected (start)
     optionIndex = 0;
 }
 
@@ -30,6 +28,7 @@ void Menu::levelsWindow(int ResolX, int ResolY){
     if (!menuFont.loadFromFile("../fonts/arial.ttf")){
         std::cout << "Not found";
     }
+//      main menu -> levels objects
 
     levelsText[0] = {" Easy Level", menuFont, 80};
     levelsText[0].setFillColor(sf::Color::Red);
@@ -49,6 +48,12 @@ void Menu::levelsWindow(int ResolX, int ResolY){
 
 bool Menu::is_empty(std::ifstream& pFile)
 {
+/*    function to check if file is empty
+ *    this function is need for read all the previous results
+ *    and write them to vector, otherwise we will get
+ *    playerScore->name = "", playerScore->score = 0/1/2 (from previous results)
+ */
+
     return pFile.peek() == std::ifstream::traits_type::eof();
 }
 
@@ -57,6 +62,10 @@ void Menu::scoreBoard(int ResolX, int ResolY, sf::RenderWindow &window){
         std::cout << "Not found";
     }
 
+/*   read previous results from file and write them to vector
+ *   and show them as a list (Menu -> Leaderboard)
+ *   [sorting is in SFMLClass]
+ */
     std::vector<playerScore> scores {};
     std::ifstream infile("../textfiles/results.txt");
     if (infile.is_open()) {
@@ -71,6 +80,7 @@ void Menu::scoreBoard(int ResolX, int ResolY, sf::RenderWindow &window){
         }
         infile.close();
     }
+
     for (int i = 0; i < 10; ++i)
     {
         if (i == 9)
@@ -92,18 +102,15 @@ void Menu::scoreBoard(int ResolX, int ResolY, sf::RenderWindow &window){
     optionIndex = 0;
 }
 
-void Menu::drawMenu(sf::RenderWindow &window, sf::Text *text) {
+void Menu::drawMenu(sf::RenderWindow &window, sf::Text *text) const {
     for (int i = 0; i < menuMaxOptionsAmount; i++)
         window.draw(text[i]);
 }
-//
-//void Menu::drawLevels(sf::RenderWindow &window, sf::Text *text) {
-//    for (int i = 0; i < levelMaxOptionsAmount; i++)
-//        window.draw(text[i]);
-//}
+
+
+// moving through menu options with a keyboard
 
 void Menu::moveUp(sf::Text *text) {
-//    std::cout << "index before: " << optionIndex << '\n';
     if (optionIndex - 1 >= -1) {
         text[optionIndex].setFillColor(sf::Color::White);
 
@@ -114,11 +121,9 @@ void Menu::moveUp(sf::Text *text) {
 
         text[optionIndex].setFillColor(sf::Color::Red);
     }
-//    std::cout << "index after: " << optionIndex << '\n';
 }
 
 void Menu::moveDown(sf::Text *text) {
-//    std::cout << "index before: " << optionIndex << '\n';
     if (optionIndex + 1 <= 3) {
         text[optionIndex].setFillColor(sf::Color::White);
 
@@ -128,10 +133,9 @@ void Menu::moveDown(sf::Text *text) {
         }
         text[optionIndex].setFillColor(sf::Color::Red);
     }
-//    std::cout << "index after: " << optionIndex << '\n';
 }
 
-int Menu::optionSelected() {
+int Menu::optionSelected() const {
     return optionIndex;
 }
 
@@ -142,11 +146,3 @@ sf::Text *Menu::getMenuText() {
 sf::Text *Menu::getLeveltext() {
     return levelsText;
 }
-
-int Menu::getMenuMaxOptionsAmout() const {
-    return menuMaxOptionsAmount;
-}
-//
-//int Menu::getLevelMaxOptionsAmout() const {
-//    return levelMaxOptionsAmount;
-//}

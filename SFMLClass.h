@@ -34,14 +34,13 @@ class SFMLClass{
 public:
     SFMLClass(int Rx, int Ry);
     void menuWindow();
+
     void initGame();
-    void gameOverText(sf::RenderWindow &window);
-    int getSizeOfCell() const;
-    int getResolX() const;
-    int getResolY() const;
-    static bool compare_scores(playerScore ps1, playerScore ps2);
+
+    void gameOverText(sf::RenderWindow &window) const;
+
+    static bool compare_scores(const playerScore& ps1, const playerScore& ps2);
     void playerToScoreBoard();
-    std::vector<playerScore> getScoreBoard();
     bool is_empty(std::ifstream& pFile);
 
 };

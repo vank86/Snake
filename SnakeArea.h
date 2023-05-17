@@ -1,6 +1,3 @@
-//
-// Created by Ivan on 19/04/2023.
-//
 
 #ifndef SNAKE_SNAKEAREA_H
 #define SNAKE_SNAKEAREA_H
@@ -17,6 +14,7 @@ class SnakeArea {
 public:
     SnakeArea(int, int);
     void drawBoard(sf::RenderWindow &window);
+
     int getHeight() const;
     int getWidth() const;
 };

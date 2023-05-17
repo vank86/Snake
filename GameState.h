@@ -17,10 +17,10 @@ public:
     GameState();
     bool getGameState() const;
     void setGameState();
+
     static int getScore();
     static void resetScore();
     static void increaseScore();
-    static void showScore();
 };
 
 

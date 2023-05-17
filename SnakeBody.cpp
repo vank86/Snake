@@ -4,6 +4,8 @@ SnakeBody::SnakeBody(SnakeArea &ar) : GameState(), area(ar)
 {
     this->bodySize = 3;
     this->dir = RIGHT;
+
+//    start position
     this->sn[0].x = 10;
     this->sn[0].y = 15;
 
@@ -11,12 +13,14 @@ SnakeBody::SnakeBody(SnakeArea &ar) : GameState(), area(ar)
 
 void SnakeBody::snakeBody()
 {
+//  snake body body-head following
     for (int i = bodySize; i > 0; i--)
     {
         sn[i].x = sn[i - 1].x;
         sn[i].y = sn[i - 1].y;
     }
 
+//  snake directions
     if (dir == UP)
         sn[0].y--;
     if (dir == DOWN)
@@ -26,6 +30,7 @@ void SnakeBody::snakeBody()
     if (dir == LEFT)
         sn[0].x--;
 
+//    out of window cases
     if (sn[0].x > area.getWidth())
         sn[0].x = 0;
     if (sn[0].x < 0)
@@ -35,6 +40,7 @@ void SnakeBody::snakeBody()
     if (sn[0].y < 0)
         sn[0].y = area.getHeight();
 
+//    collision case
     for (int i = 1; i < bodySize; i++)
     {
         if (sn[0].x == sn[i].x && sn[0].y == sn[i].y) {
@@ -49,9 +55,11 @@ void SnakeBody::drawSnake(sf::RenderWindow &window, sf::Sprite &snakeSprite)
     for(int i = 0; i < bodySize; i++)
     {
         if (i != 0) {
+//          head drawing
             snakeSprite.setTextureRect(sf::IntRect(0, 0, 25, 25));
         }
         else {
+//          body drawing
             snakeSprite.setTextureRect(sf::IntRect(25, 0, 25, 25));
         }
 
@@ -62,10 +70,6 @@ void SnakeBody::drawSnake(sf::RenderWindow &window, sf::Sprite &snakeSprite)
     }
 }
 
-int SnakeBody::getBodySize() const
-{
-    return bodySize;
-}
 
 void SnakeBody::setDir(Direction direct)
 {

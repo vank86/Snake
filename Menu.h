@@ -1,6 +1,3 @@
-//
-// Created by Ivan on 08/05/2023.
-//
 
 #ifndef SNAKE_MENU_H
 #define SNAKE_MENU_H
@@ -22,24 +19,22 @@ class Menu {
     sf::Text levelsText[3];
     sf::Text scoreText[10];
 
-//    sf::RenderWindow &window;
-
 public:
     Menu(int ResolX, int ResolY);
-    bool is_empty(std::ifstream& pFile);
     void levelsWindow(int ResolX, int ResolY);
-    void drawMenu(sf::RenderWindow &window, sf::Text *text);
+
+    static bool is_empty(std::ifstream& pFile);
     void scoreBoard(int ResolX, int ResolY, sf::RenderWindow &window);
 
-//    void drawLevels(sf::RenderWindow &window, sf::Text *text);
+    void drawMenu(sf::RenderWindow &window, sf::Text *text) const;
 
     void moveUp(sf::Text *text);
     void moveDown(sf::Text *text);
-    int optionSelected();
+
+    int optionSelected() const;
     sf::Text* getMenuText();
     sf::Text* getLeveltext();
-    int getMenuMaxOptionsAmout() const;
-    int getLevelMaxOptionsAmout() const;
+
 
 };
 
