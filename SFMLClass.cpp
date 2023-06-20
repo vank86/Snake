@@ -262,10 +262,11 @@ void SFMLClass::gameOverText(sf::RenderWindow &window) const
     window.draw(gameOverText);
 }
 
-//  comparison function
-bool SFMLClass::compare_scores(const playerScore& ps1, const playerScore& ps2) {
-    return ps1.score > ps2.score;
-}
+//  comparison function (now - useless, lambda expr. used instead in playerToScoreBoard()) !!!!!
+
+//bool SFMLClass::compare_scores(const playerScore& ps1, const playerScore& ps2) {
+//    return ps1.score > ps2.score;
+//}
 
 void SFMLClass::playerToScoreBoard() {
 //    reading all previous result from file and saving them to vector
@@ -292,7 +293,10 @@ void SFMLClass::playerToScoreBoard() {
         scores.push_back(ps);
 
 //  sorting the players scores in descending order using the compare_scores function
-    std::sort(scores.begin(), scores.end(), compare_scores);
+    std::sort(scores.begin(), scores.end(), [](const playerScore& ps1, const playerScore& ps2)
+                                                                {
+                                                                    return ps1.score > ps2.score;
+                                                                });
 
     // saving all results to .txt file
     std::ofstream outfile("../textfiles/results.txt");
